@@ -1,0 +1,492 @@
+{
+    "version": 1,
+    "categories": [
+        {
+            "name": "Core",
+            "modes": [
+                {
+                    "name": "Attack Defense",
+                    "maps": [
+                        {
+                            "name": "Dustbowl",
+                            "bsp": "cp_dustbowl",
+                            "group": 0,
+                            "bit": 10
+                        },
+                        {
+                            "name": "Egypt",
+                            "bsp": "cp_egypt_final",
+                            "group": 0,
+                            "bit": 20
+                        },
+                        {
+                            "name": "Gorge",
+                            "bsp": "cp_gorge",
+                            "group": 0,
+                            "bit": 1
+                        },
+                        {
+                            "name": "Gravalpit",
+                            "bsp": "cp_gravelpit",
+                            "group": 0,
+                            "bit": 9
+                        },
+                        {
+                            "name": "Junction",
+                            "bsp": "cp_junction_final",
+                            "group": 0,
+                            "bit": 21
+                        },
+                        {
+                            "name": "Mercenary Park",
+                            "bsp": "cp_mercenarypark",
+                            "group": 3,
+                            "bit": 5
+                        },
+                        {
+                            "name": "Mossrock",
+                            "bsp": "cp_mossrock",
+                            "group": 3,
+                            "bit": 6
+                        },
+                        {
+                            "name": "Mountain Lab",
+                            "bsp": "cp_mountainlab",
+                            "group": 1,
+                            "bit": 3
+                        },
+                        {
+                            "name": "Steel",
+                            "bsp": "cp_steel",
+                            "group": 0,
+                            "bit": 19
+                        }
+                    ]
+                },
+                {
+                    "name": "Capture the Flag",
+                    "maps": [
+                        {
+                            "name": "2Fort",
+                            "bsp": "ctf_2fort",
+                            "group": 0,
+                            "bit": 12
+                        },
+                        {
+                            "name": "Doublecross",
+                            "bsp": "ctf_doublecross",
+                            "group": 0,
+                            "bit": 29
+                        },
+                        {
+                            "name": "Landfall",
+                            "bsp": "ctf_landfall",
+                            "group": 1,
+                            "bit": 21
+                        },
+                        {
+                            "name": "Sawmill",
+                            "bsp": "ctf_sawmill",
+                            "group": 0,
+                            "bit": 26
+                        },
+                        {
+                            "name": "Turbine",
+                            "bsp": "ctf_turbine",
+                            "group": 0,
+                            "bit": 17
+                        },
+                        {
+                            "name": "Well",
+                            "bsp": "ctf_well",
+                            "group": 0,
+                            "bit": 14
+                        }
+                    ]
+                },
+                {
+                    "name": "Control Points",
+                    "maps": [
+                        {
+                            "name": "5Gorge",
+                            "bsp": "cp_5gorge",
+                            "group": 1,
+                            "bit": 5
+                        },
+                        {
+                            "name": "Badlands",
+                            "bsp": "cp_badlands",
+                            "group": 0,
+                            "bit": 2
+                        },
+                        {
+                            "name": "Coldfront",
+                            "bsp": "cp_coldfront",
+                            "group": 1,
+                            "bit": 2
+                        },
+                        {
+                            "name": "Fastlane",
+                            "bsp": "cp_fastlane",
+                            "group": 0,
+                            "bit": 16
+                        },
+                        {
+                            "name": "Foundry",
+                            "bsp": "cp_foundry",
+                            "group": 0,
+                            "bit": 5
+                        },
+                        {
+                            "name": "Freight",
+                            "bsp": "cp_freight_final1",
+                            "group": 0,
+                            "bit": 30
+                        },
+                        {
+                            "name": "Granary",
+                            "bsp": "cp_granary",
+                            "group": 0,
+                            "bit": 4
+                        },
+                        {
+                            "name": "Gullywash",
+                            "bsp": "cp_gullywash_final1",
+                            "group": 0,
+                            "bit": 6
+                        },
+                        {
+                            "name": "Metalworks",
+                            "bsp": "cp_metalworks",
+                            "group": 1,
+                            "bit": 16
+                        },
+                        {
+                            "name": "Powerhouse",
+                            "bsp": "cp_powerhouse",
+                            "group": 1,
+                            "bit": 24
+                        },
+                        {
+                            "name": "Process",
+                            "bsp": "cp_process_final",
+                            "group": 1,
+                            "bit": 14
+                        },
+                        {
+                            "name": "Snakewater",
+                            "bsp": "cp_snakewater_final1",
+                            "group": 0,
+                            "bit": 7
+                        },
+                        {
+                            "name": "Standin",
+                            "bsp": "cp_standin_final",
+                            "group": 1,
+                            "bit": 13
+                        },
+                        {
+                            "name": "Sunshine",
+                            "bsp": "cp_sunshine",
+                            "group": 1,
+                            "bit": 15
+                        },
+                        {
+                            "name": "Vanguard",
+                            "bsp": "cp_vanguard",
+                            "group": 0,
+                            "bit": 3
+                        },
+                        {
+                            "name": "Well",
+                            "bsp": "cp_well",
+                            "group": 0,
+                            "bit": 11
+                        },
+                        {
+                            "name": "Yukon",
+                            "bsp": "cp_yukon_final",
+                            "group": 0,
+                            "bit": 27
+                        }
+                    ]
+                },
+                {
+                    "name": "King of the Hill",
+                    "maps": [
+                        {
+                            "name": "Badlands",
+                            "bsp": "koth_badlands",
+                            "group": 1,
+                            "bit": 9
+                        },
+                        {
+                            "name": "Brazil",
+                            "bsp": "koth_brazil",
+                            "group": 3,
+                            "bit": 10
+                        },
+                        {
+                            "name": "Harvest",
+                            "bsp": "koth_harvest_final",
+                            "group": 0,
+                            "bit": 28
+                        },
+                        {
+                            "name": "Highpass",
+                            "bsp": "koth_highpass",
+                            "group": 1,
+                            "bit": 27
+                        },
+                        {
+                            "name": "Kong King",
+                            "bsp": "koth_king",
+                            "group": 1,
+                            "bit": 12
+                        },
+                        {
+                            "name": "Lakeside",
+                            "bsp": "koth_lakeside_final",
+                            "group": 1,
+                            "bit": 8
+                        },
+                        {
+                            "name": "Lazarus",
+                            "bsp": "koth_lazarus",
+                            "group": 3,
+                            "bit": 7
+                        },
+                        {
+                            "name": "Nucleus",
+                            "bsp": "koth_nucleus",
+                            "group": 0,
+                            "bit": 25
+                        },
+                        {
+                            "name": "Sawmill",
+                            "bsp": "koth_sawmill",
+                            "group": 0,
+                            "bit": 24
+                        },
+                        {
+                            "name": "Suijin",
+                            "bsp": "koth_suijin",
+                            "group": 1,
+                            "bit": 25
+                        },
+                        {
+                            "name": "Viaduct",
+                            "bsp": "koth_viaduct",
+                            "group": 0,
+                            "bit": 8
+                        }
+                    ]
+                },
+                {
+                    "name": "Payload",
+                    "maps": [
+                        {
+                            "name": "Badwater",
+                            "bsp": "pl_badwater",
+                            "group": 0,
+                            "bit": 18
+                        },
+                        {
+                            "name": "Barnblitz",
+                            "bsp": "pl_barnblitz",
+                            "group": 1,
+                            "bit": 10
+                        },
+                        {
+                            "name": "Borneo",
+                            "bsp": "pl_borneo",
+                            "group": 1,
+                            "bit": 29
+                        },
+                        {
+                            "name": "Enclosure",
+                            "bsp": "pl_enclosure_final",
+                            "group": 3,
+                            "bit": 9
+                        },
+                        {
+                            "name": "Frontier",
+                            "bsp": "pl_frontier_final",
+                            "group": 1,
+                            "bit": 6
+                        },
+                        {
+                            "name": "Goldrush",
+                            "bsp": "pl_goldrush",
+                            "group": 0,
+                            "bit": 15
+                        },
+                        {
+                            "name": "Hoodoo",
+                            "bsp": "pl_hoodoo_final",
+                            "group": 0,
+                            "bit": 23
+                        },
+                        {
+                            "name": "Snowycoast",
+                            "bsp": "pl_snowycoast",
+                            "group": 1,
+                            "bit": 30
+                        },
+                        {
+                            "name": "Swiftwater",
+                            "bsp": "pl_swiftwater_final1",
+                            "group": 1,
+                            "bit": 17
+                        },
+                        {
+                            "name": "Thundermountain",
+                            "bsp": "pl_thundermountain",
+                            "group": 1,
+                            "bit": 1
+                        },
+                        {
+                            "name": "Upward",
+                            "bsp": "pl_upward",
+                            "group": 0,
+                            "bit": 31
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Alternative",
+            "modes": [
+                {
+                    "name": "Payload Race",
+                    "maps": [
+                        {
+                            "name": "Banana Bay",
+                            "bsp": "plr_bananabay",
+                            "group": 3,
+                            "bit": 8
+                        },
+                        {
+                            "name": "Hightower",
+                            "bsp": "plr_hightower",
+                            "group": 1,
+                            "bit": 0
+                        },
+                        {
+                            "name": "Nightfall",
+                            "bsp": "plr_nightfall_final",
+                            "group": 1,
+                            "bit": 7
+                        },
+                        {
+                            "name": "Pipeline",
+                            "bsp": "plr_pipeline",
+                            "group": 0,
+                            "bit": 22
+                        }
+                    ]
+                },
+                {
+                    "name": "Misc",
+                    "maps": [
+                        {
+                            "name": "2Fort Invasion",
+                            "bsp": "ctf_2fort_invasion",
+                            "group": 1,
+                            "bit": 23
+                        },
+                        {
+                            "name": "DeGroot Keep",
+                            "bsp": "cp_degrootkeep",
+                            "group": 1,
+                            "bit": 4
+                        },
+                        {
+                            "name": "Doomsday",
+                            "bsp": "sd_doomsday",
+                            "group": 1,
+                            "bit": 11
+                        },
+                        {
+                            "name": "Hydro",
+                            "bsp": "tc_hydro",
+                            "group": 0,
+                            "bit": 13
+                        },
+                        {
+                            "name": "Probed",
+                            "bsp": "koth_probed",
+                            "group": 1,
+                            "bit": 26
+                        },
+                        {
+                            "name": "Snowplow",
+                            "bsp": "cp_snowplow",
+                            "group": 1,
+                            "bit": 22
+                        },
+                        {
+                            "name": "Watergate",
+                            "bsp": "pd_watergate",
+                            "group": 1,
+                            "bit": 31
+                        }
+                    ]
+                },
+                {
+                    "name": "Mannpower",
+                    "maps": [
+                        {
+                            "name": "Foundry",
+                            "bsp": "ctf_foundry",
+                            "group": 2,
+                            "bit": 21
+                        },
+                        {
+                            "name": "Gorge",
+                            "bsp": "ctf_gorge",
+                            "group": 2,
+                            "bit": 22
+                        },
+                        {
+                            "name": "Hellfire",
+                            "bsp": "ctf_hellfire",
+                            "group": 2,
+                            "bit": 24
+                        },
+                        {
+                            "name": "Thundermountain",
+                            "bsp": "ctf_thundermountain",
+                            "group": 2,
+                            "bit": 23
+                        }
+                    ]
+                },
+                {
+                    "name": "Pass Time",
+                    "maps": [
+                        {
+                            "name": "Brickyard",
+                            "bsp": "pass_brickyard",
+                            "group": 1,
+                            "bit": 18
+                        },
+                        {
+                            "name": "District",
+                            "bsp": "pass_district",
+                            "group": 1,
+                            "bit": 20
+                        },
+                        {
+                            "name": "Timbertown",
+                            "bsp": "pass_timbertown",
+                            "group": 1,
+                            "bit": 19
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
