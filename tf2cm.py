@@ -3,8 +3,10 @@ import codecs
 import json
 import os
 import sys
+import traceback
 
 import wx
+import steam
 import tf2cm_wx
 
 __version__ = '1.0.0'
@@ -76,19 +78,42 @@ def read_casual(path, maps_data):
     pass
 
 def write_casual(path, maps, maps_data):
-    pass
+    groups = maps2int(maps, maps_data)
+    groups = list(map(lambda x: 'selected_maps_bits: {}\r\n'.format(x), groups))
+    try:
+        with codecs.open(path, 'w', encoding='utf-8') as f:
+            f.writelines(groups)
+        return True
+    except:
+        return False
 
 def read_cm():
-    pass
+    app_path = os.path.dirname(os.path.realpath(__file__))
+    path = os.path.join(app_path, 'tf2cm.json')
+    try:
+        if not os.path.isfile(path):
+            write_cm({'selections':[]})
+            return read_cm()
+        with codecs.open(path, encoding='utf-8') as f:
+            data = json.loads(f.read())
+        return data
+    except:
+        error(frame, traceback.format_exc())
+        sys.exit(1)
 
 def write_cm(data):
-    pass
+    app_path = os.path.dirname(os.path.realpath(__file__))
+    path = os.path.join(app_path, 'tf2cm.json')
+    try:
+        with codecs.open(path, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(data))
+    except:
+        error(frame, traceback.format_exc())
 
 def error(frame, msg):
     dlg = wx.MessageDialog(frame, msg, 'TF2CM Error', wx.ICON_ERROR)
     dlg.ShowModal()
     dlg.Destroy()
-    sys.exit(1)
 
 if __name__ == '__main__':
     app = wx.App(False)
@@ -108,17 +133,25 @@ if __name__ == '__main__':
             break
     if not data_file:
         error(frame, 'Map selection data file not found.\nPlease re-download TF2CM.')
+        sys.exit(1)
     casual = dict()
     try:
         with codecs.open(data_file, encoding='utf-8') as f:
             casual = json.loads(f.read())
     except:
         error(frame, 'Map selection data file is broken.\nPlease re-download TF2CM.')
+        sys.exit(1)
     maps_data, groups = load_maps(casual)
     frame.casual = casual
     frame.maps_data = maps_data
     frame.groups = groups
     frame.load_map_struct()
+    frame.cm = read_cm()
+    frame.load_cm()
+    frame.tf = steam.tf2()
+    if not frame.tf:
+        error(frame, 'TF2 is not installed properly...')
+        sys.exit(1)
     frame.SetTitle('{} {}'.format(frame.GetTitle(), __version__))
     frame.Show(True)
     app.MainLoop()

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-
+import os
 import wx
 import wx.xrc
 import wx.lib.agw.customtreectrl as CT
+
+import tf2cm
 
 
 class CustomTree(CT.CustomTreeCtrl):
@@ -65,7 +67,8 @@ class CustomTree(CT.CustomTreeCtrl):
         return maps
 
     def SetMaps(self, maps):
-        items = [i for i in self.GetAllItems() if self.GetPyData(i) is not None]
+        items = [i for i in self.GetAllItems() if self.GetPyData(i)
+                 is not None]
         for m in items:
             if self.GetPyData(m) in maps:
                 self.CheckItem(m)
@@ -101,22 +104,22 @@ class frameMain(wx.Frame):
         gSizerButtons = wx.GridSizer(2, 2, 0, 0)
 
         self.buttonAdd = wx.Button(
-            self, wx.ID_ANY, 'Add', wx.DefaultPosition, wx.DefaultSize, 0)
+            self, wx.ID_ANY, 'Add Group', wx.DefaultPosition, wx.DefaultSize, 0)
         gSizerButtons.Add(self.buttonAdd, 0, wx.ALIGN_CENTER |
                           wx.ALL | wx.EXPAND, 5)
 
         self.buttonDelete = wx.Button(
-            self, wx.ID_ANY, 'Delete', wx.DefaultPosition, wx.DefaultSize, 0)
+            self, wx.ID_ANY, 'Delete Group', wx.DefaultPosition, wx.DefaultSize, 0)
         gSizerButtons.Add(self.buttonDelete, 0,
                           wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
 
         self.buttonSave = wx.Button(
-            self, wx.ID_ANY, 'Save', wx.DefaultPosition, wx.DefaultSize, 0)
+            self, wx.ID_ANY, 'Save Group', wx.DefaultPosition, wx.DefaultSize, 0)
         gSizerButtons.Add(self.buttonSave, 1,
                           wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
 
         self.buttonApply = wx.Button(
-            self, wx.ID_ANY, 'Apply', wx.DefaultPosition, wx.DefaultSize, 0)
+            self, wx.ID_ANY, 'Apply to TF2', wx.DefaultPosition, wx.DefaultSize, 0)
         gSizerButtons.Add(self.buttonApply, 0,
                           wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
 
@@ -139,11 +142,15 @@ class frameMain(wx.Frame):
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         bSizerGroupName.Add(self.textGroupName, 1,
                             wx.ALIGN_CENTER | wx.ALIGN_RIGHT | wx.ALL, 5)
-
         bSizerRight.Add(bSizerGroupName, 0, wx.EXPAND, 5)
 
+        self.staticMapCount = wx.StaticText(
+            self, wx.ID_ANY, '0 maps selected', wx.DefaultPosition, wx.DefaultSize, 0)
+        self.staticMapCount.Wrap(-1)
+        bSizerRight.Add(self.staticMapCount, 0, wx.ALL, 5)
+
         self.treeMaps = CustomTree(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TR_DEFAULT_STYLE, agwStyle=wx.TR_DEFAULT_STYLE|CT.TR_AUTO_CHECK_CHILD|CT.TR_AUTO_CHECK_PARENT)
+            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TR_DEFAULT_STYLE, agwStyle=wx.TR_DEFAULT_STYLE | CT.TR_AUTO_CHECK_CHILD | CT.TR_AUTO_CHECK_PARENT)
         self.root = self.treeMaps.AddRoot('Map Selection')
         self.treeMaps.Expand(self.root)
 
@@ -157,35 +164,165 @@ class frameMain(wx.Frame):
 
         self.Centre(wx.BOTH)
 
-        self.buttonAdd.Bind(wx.EVT_BUTTON, self.buttonAddOnButtonClick)
-        self.buttonDelete.Bind(wx.EVT_BUTTON, self.buttonDeleteOnButtonClick)
-        self.buttonSave.Bind(wx.EVT_BUTTON, self.buttonSaveOnButtonClick)
-        self.buttonApply.Bind(wx.EVT_BUTTON, self.buttonApplyOnButtonClick)
+        self.textGroupName.Enable(False)
+        self.treeMaps.Enable(False)
+        self.buttonDelete.Enable(False)
+        self.buttonApply.Enable(False)
+
+        self.listboxGroup.Bind(wx.EVT_LISTBOX, self.OnSelect)
+        self.buttonAdd.Bind(wx.EVT_BUTTON, self.OnAdd)
+        self.buttonDelete.Bind(wx.EVT_BUTTON, self.OnDelete)
+        self.buttonSave.Bind(wx.EVT_BUTTON, self.OnSave)
+        self.buttonApply.Bind(wx.EVT_BUTTON, self.OnApply)
+        self.treeMaps.Bind(CT.EVT_TREE_ITEM_CHECKED, self.OnChecked)
 
     def __del__(self):
         pass
 
-    def buttonAddOnButtonClick(self, event):
-        pass
+    def OnSelect(self, event):
+        self.update_maps()
 
-    def buttonDeleteOnButtonClick(self, event):
-        pass
+    def OnAdd(self, event):
+        name_index = 1
+        while 'Group {}'.format(name_index) in self.selections:
+            name_index += 1
+        name = 'Group {}'.format(name_index)
+        self.selections[name] = {'maps': []}
+        self.listboxGroup.Append(name)
+        self.textGroupName.Enable(True)
+        self.treeMaps.Enable(True)
+        self.buttonDelete.Enable(True)
+        self.buttonApply.Enable(True)
+        index = self.listboxGroup.FindString(name, True)
+        self.listboxGroup.SetSelection(index)
+        self.update_maps()
 
-    def buttonSaveOnButtonClick(self, event):
-        pass
+    def OnDelete(self, event):
+        index = self.listboxGroup.GetSelection()
+        if index == -1:
+            return
+        text = self.listboxGroup.GetString(index)
+        self.selections.pop(text)
+        self.listboxGroup.Clear()
+        for sel in self.selections:
+            self.listboxGroup.Append(sel)
+        if self.listboxGroup.IsEmpty():
+            self.textGroupName.SetValue('')
+            self.treeMaps.SetMaps([])
+            self.update_count()
+            self.staticMapCount.SetLabel('0 maps selected')
+            self.textGroupName.Enable(False)
+            self.treeMaps.Enable(False)
+            self.buttonDelete.Enable(False)
+            self.buttonApply.Enable(False)
+        else:
+            count = self.listboxGroup.GetCount()
+            if index < count:
+                self.listboxGroup.SetSelection(index)
+            else:
+                self.listboxGroup.SetSelection(count - 1)
+            self.update_maps()
 
-    def buttonApplyOnButtonClick(self, event):
-        pass
+    def OnSave(self, event):
+        index = self.listboxGroup.GetSelection()
+        if index == -1 and self.selections:
+            tf2cm.error(self, 'Select a group to save!')
+            return
+        elif index == -1:
+            new_cm = dict()
+            new_cm['selections'] = self.selections
+            tf2cm.write_cm(new_cm)
+            return
+        old_name = self.listboxGroup.GetString(index)
+        new_name = self.textGroupName.GetValue().strip()
+        if not new_name:
+            new_name = old_name
+            self.textGroupName.SetValue(old_name)
+        if new_name != old_name and new_name in self.selections:
+            tf2cm.error(self, 'Duplicated group name!')
+            return
+        if old_name != new_name:
+            self.selections[old_name]['maps'] = self.treeMaps.GetMaps()
+            self.selections[new_name] = self.selections[old_name]
+            self.selections.pop(old_name)
+            self.listboxGroup.Clear()
+            for sel in self.selections:
+                self.listboxGroup.Append(sel)
+            index = self.listboxGroup.FindString(new_name)
+            self.listboxGroup.SetSelection(index)
+            self.update_maps()
+        else:
+            self.selections[new_name]['maps'] = self.treeMaps.GetMaps()
+        new_cm = dict()
+        new_cm['selections'] = self.selections
+        tf2cm.write_cm(new_cm)
+
+    def OnApply(self, event):
+        path = os.path.join(self.tf, 'casual_criteria.vdf')
+        stat = tf2cm.write_casual(
+            path, self.treeMaps.GetMaps(), self.maps_data)
+        if stat:
+            dlg = wx.MessageDialog(self, 'Go back to TF2 and click "LOAD SAVED SETTINGS" button in Casual Mode.',
+                                   'Map selection exported', wx.ICON_INFORMATION)
+            dlg.ShowModal()
+            dlg.Destroy()
+
+    def OnChecked(self, event):
+        self.update_count()
+
+    def update_maps(self):
+        if self.old_sel and self.old_sel in self.selections and self.treeMaps.IsEnabled():
+            self.selections[self.old_sel]['maps'] = self.treeMaps.GetMaps()
+        index = self.listboxGroup.GetSelection()
+        if index == -1:
+            self.textGroupName.SetValue('')
+            self.treeMaps.SetMaps([])
+            self.update_count()
+            self.textGroupName.Enable(False)
+            self.treeMaps.Enable(False)
+            self.buttonDelete.Enable(False)
+            self.buttonApply.Enable(False)
+            return
+        name = self.listboxGroup.GetString(index)
+        maps = self.selections[name]['maps']
+        self.textGroupName.SetValue(name)
+        self.treeMaps.SetMaps(maps)
+        self.update_count()
+        self.old_sel = name
+
+    def update_count(self):
+        count = len(self.treeMaps.GetMaps())
+        if count == 1:
+            self.staticMapCount.SetLabel('1 map selected')
+        else:
+            self.staticMapCount.SetLabel('{} maps selected'.format(count))
+
+    def load_cm(self):
+        self.old_sel = ''
+        selections = self.cm['selections']
+        self.selections = selections
+        for sel in selections:
+            self.listboxGroup.Append(sel)
+        if self.selections:
+            self.textGroupName.Enable(True)
+            self.treeMaps.Enable(True)
+            self.buttonDelete.Enable(True)
+            self.buttonApply.Enable(True)
+            self.listboxGroup.SetSelection(0)
+        self.update_maps()
 
     def load_map_struct(self):
         for i, category in enumerate(self.casual.get('categories')):
-            category_t = self.treeMaps.AppendItem(self.root, category['name'], ct_type=1)
+            category_t = self.treeMaps.AppendItem(
+                self.root, category['name'], ct_type=1)
             self.casual['categories'][i]['item'] = category_t
             for j, mode in enumerate(category.get('modes')):
-                mode_t = self.treeMaps.AppendItem(category_t, mode['name'], ct_type=1)
+                mode_t = self.treeMaps.AppendItem(
+                    category_t, mode['name'], ct_type=1)
                 self.casual['categories'][i]['modes'][j]['item'] = mode_t
                 for k, game_map in enumerate(mode.get('maps')):
-                    map_t = self.treeMaps.AppendItem(mode_t, game_map['name'], ct_type=1)
+                    map_t = self.treeMaps.AppendItem(
+                        mode_t, game_map['name'], ct_type=1)
                     self.treeMaps.SetPyData(map_t, game_map['bsp'])
                     self.casual['categories'][i]['modes'][j]['maps'][k]['item'] = map_t
         for category in self.casual.get('categories'):
