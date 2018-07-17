@@ -3,12 +3,15 @@ import os
 import re
 import winreg
 
+
 def tf2():
     vdf_pat = re.compile(r'^\s*"\d+"\s*".+"\s*')
     steam = None
+    reg_key = r'Software\Valve\Steam'
     try:
-        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\Valve\Steam') as handle:
-            steam = winreg.QueryValueEx(handle, 'SteamPath')[0].replace('/', '\\')
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, reg_key) as handle:
+            steam = winreg.QueryValueEx(handle, 'SteamPath')[
+                0].replace('/', '\\')
     except:
         return None
     libs = [steam]
@@ -18,7 +21,8 @@ def tf2():
             for line in f:
                 line = line.strip()
                 if vdf_pat.match(line):
-                    libs.append(line.split()[1].strip('"').replace('\\\\', '\\'))
+                    libs.append(line.split()[1].strip(
+                        '"').replace('\\\\', '\\'))
     except:
         pass
     for lib in libs:

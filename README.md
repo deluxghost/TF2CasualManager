@@ -1,1 +1,1 @@
-# TF2CasualMaster
+# TF2CasualManager
