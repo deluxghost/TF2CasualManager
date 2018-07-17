@@ -105,7 +105,7 @@ def read_cm():
     path = os.path.join(app_path, 'tf2cm.json')
     try:
         if not os.path.isfile(path):
-            write_cm({'selections': []})
+            write_cm({'selections': {}})
             return read_cm()
         with codecs.open(path, encoding='utf-8') as f:
             data = json.loads(f.read())
