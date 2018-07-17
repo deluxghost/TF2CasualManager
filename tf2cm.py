@@ -9,7 +9,7 @@ import wx
 import steam
 import tf2cm_wx
 
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 
 class Map(object):
