@@ -35,18 +35,28 @@ class CustomTree(CT.CustomTreeCtrl):
             self.CheckItem2(parent, checked, torefresh=True)
             self.AutoCheckParent(parent, checked)
 
-    def GetCheckedItems(self, itemParent=None, checkedItems=None):
-        if itemParent is None:
-            itemParent = self.GetRootItem()
-        if checkedItems is None:
-            checkedItems = []
-        child, cookie = self.GetFirstChild(itemParent)
+    def GetCheckedItems(self, parent=None, checked=None):
+        if parent is None:
+            parent = self.GetRootItem()
+        if checked is None:
+            checked = []
+        child, cookie = self.GetFirstChild(parent)
         while child:
             if self.IsItemChecked(child):
-                checkedItems.append(child)
-            checkedItems = self.GetCheckedItems(child, checkedItems)
-            child, cookie = self.GetNextChild(itemParent, cookie)
-        return checkedItems
+                checked.append(child)
+            checked = self.GetCheckedItems(child, checked)
+            child, cookie = self.GetNextChild(parent, cookie)
+        return checked
+
+    def CollapseAll(self, parent=None):
+        if parent is None:
+            parent = self.GetRootItem()
+        child, cookie = self.GetFirstChild(parent)
+        while child:
+            self.CollapseAll(child)
+            self.Collapse(child)
+            child, cookie = self.GetNextChild(parent, cookie)
+        self.Collapse(parent)
 
     def GetAllItems(self, itemParent=None, Items=None):
         if itemParent is None:
@@ -144,10 +154,25 @@ class frameMain(wx.Frame):
                             wx.ALIGN_CENTER | wx.ALIGN_RIGHT | wx.ALL, 5)
         bSizerRight.Add(bSizerGroupName, 0, wx.EXPAND, 5)
 
+        bSizerCount = wx.BoxSizer(wx.HORIZONTAL)
+
         self.staticMapCount = wx.StaticText(
             self, wx.ID_ANY, '0 maps selected', wx.DefaultPosition, wx.DefaultSize, 0)
         self.staticMapCount.Wrap(-1)
-        bSizerRight.Add(self.staticMapCount, 0, wx.ALL, 5)
+        bSizerCount.Add(self.staticMapCount, 0,
+                        wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+
+        bSizerCount.Add((0, 0), 1, wx.EXPAND, 5)
+
+        self.buttonExpand = wx.Button(
+            self, wx.ID_ANY, '+', wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT)
+        bSizerCount.Add(self.buttonExpand, 0, wx.ALL, 5)
+
+        self.buttonCollapse = wx.Button(
+            self, wx.ID_ANY, '-', wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT)
+        bSizerCount.Add(self.buttonCollapse, 0, wx.ALL, 5)
+
+        bSizerRight.Add(bSizerCount, 0, wx.EXPAND, 5)
 
         self.treeMaps = CustomTree(
             self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TR_DEFAULT_STYLE, agwStyle=wx.TR_DEFAULT_STYLE | CT.TR_AUTO_CHECK_CHILD | CT.TR_AUTO_CHECK_PARENT)
@@ -166,15 +191,27 @@ class frameMain(wx.Frame):
 
         self.enable_group(False)
 
+        self.buttonExpand.Bind(wx.EVT_BUTTON, self.OnExpand)
+        self.buttonCollapse.Bind(wx.EVT_BUTTON, self.OnCollapse)
         self.listboxGroup.Bind(wx.EVT_LISTBOX, self.OnSelect)
         self.buttonAdd.Bind(wx.EVT_BUTTON, self.OnAdd)
         self.buttonDelete.Bind(wx.EVT_BUTTON, self.OnDelete)
         self.buttonSave.Bind(wx.EVT_BUTTON, self.OnSave)
         self.buttonApply.Bind(wx.EVT_BUTTON, self.OnApply)
         self.treeMaps.Bind(CT.EVT_TREE_ITEM_CHECKED, self.OnChecked)
+        self.treeMaps.Bind(CT.EVT_TREE_ITEM_COLLAPSED, self.OnRootCollapsed)
 
     def __del__(self):
         pass
+
+    def OnExpand(self, event):
+        self.treeMaps.ExpandAll()
+
+    def OnCollapse(self, event):
+        self.treeMaps.CollapseAll()
+        for category in self.casual.get('categories'):
+            self.treeMaps.Expand(category['item'])
+        self.treeMaps.Expand(self.root)
 
     def OnSelect(self, event):
         self.update_maps()
@@ -261,7 +298,13 @@ class frameMain(wx.Frame):
     def OnChecked(self, event):
         self.update_count()
 
+    def OnRootCollapsed(self, event):
+        if self.root == event.GetItem():
+            self.treeMaps.Expand(self.root)
+
     def enable_group(self, check):
+        self.buttonExpand.Enable(check)
+        self.buttonCollapse.Enable(check)
         self.textGroupName.Enable(check)
         self.treeMaps.Enable(check)
         self.buttonDelete.Enable(check)

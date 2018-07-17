@@ -9,7 +9,8 @@ import wx
 import steam
 import tf2cm_wx
 
-__version__ = '1.0.0'
+__version__ = '1.1.0'
+
 
 class Map(object):
 
@@ -74,6 +75,7 @@ def maps2int(maps, maps_data):
     groups = list(map(lambda x: int(''.join(reversed(x)), 2), groups))
     return groups
 
+
 def get_path():
     if getattr(sys, 'frozen', False):
         app_path = os.path.dirname(os.path.realpath(sys.executable))
@@ -81,12 +83,15 @@ def get_path():
         app_path = os.path.dirname(os.path.realpath(__file__))
     return app_path
 
+
 def read_casual(path, maps_data):
     pass
 
+
 def write_casual(path, maps, maps_data):
     groups = maps2int(maps, maps_data)
-    groups = list(map(lambda x: 'selected_maps_bits: {}\r\n'.format(x), groups))
+    groups = list(
+        map(lambda x: 'selected_maps_bits: {}\r\n'.format(x), groups))
     try:
         with codecs.open(path, 'w', encoding='utf-8') as f:
             f.writelines(groups)
@@ -94,12 +99,13 @@ def write_casual(path, maps, maps_data):
     except:
         return False
 
+
 def read_cm():
     app_path = get_path()
     path = os.path.join(app_path, 'tf2cm.json')
     try:
         if not os.path.isfile(path):
-            write_cm({'selections':[]})
+            write_cm({'selections': []})
             return read_cm()
         with codecs.open(path, encoding='utf-8') as f:
             data = json.loads(f.read())
@@ -107,6 +113,7 @@ def read_cm():
     except:
         error(frame, traceback.format_exc())
         sys.exit(1)
+
 
 def write_cm(data):
     app_path = get_path()
@@ -117,10 +124,12 @@ def write_cm(data):
     except:
         error(frame, traceback.format_exc())
 
+
 def error(frame, msg):
     dlg = wx.MessageDialog(frame, msg, 'TF2CM Error', wx.ICON_ERROR)
     dlg.ShowModal()
     dlg.Destroy()
+
 
 if __name__ == '__main__':
     app = wx.App(False)
