@@ -74,6 +74,13 @@ def maps2int(maps, maps_data):
     groups = list(map(lambda x: int(''.join(reversed(x)), 2), groups))
     return groups
 
+def get_path():
+    if getattr(sys, 'frozen', False):
+        app_path = os.path.dirname(os.path.realpath(sys.executable))
+    else:
+        app_path = os.path.dirname(os.path.realpath(__file__))
+    return app_path
+
 def read_casual(path, maps_data):
     pass
 
@@ -88,7 +95,7 @@ def write_casual(path, maps, maps_data):
         return False
 
 def read_cm():
-    app_path = os.path.dirname(os.path.realpath(__file__))
+    app_path = get_path()
     path = os.path.join(app_path, 'tf2cm.json')
     try:
         if not os.path.isfile(path):
@@ -102,7 +109,7 @@ def read_cm():
         sys.exit(1)
 
 def write_cm(data):
-    app_path = os.path.dirname(os.path.realpath(__file__))
+    app_path = get_path()
     path = os.path.join(app_path, 'tf2cm.json')
     try:
         with codecs.open(path, 'w', encoding='utf-8') as f:
@@ -122,7 +129,7 @@ if __name__ == '__main__':
     icon.CopyFromBitmap(wx.Bitmap("icon.ico", wx.BITMAP_TYPE_ANY))
     frame.SetIcon(icon)
     data_file = None
-    app_path = os.path.dirname(os.path.realpath(__file__))
+    app_path = get_path()
     path = [
         os.path.join(app_path, r'data\casual.min.json'),
         os.path.join(app_path, r'data\casual.json')

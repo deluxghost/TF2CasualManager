@@ -164,10 +164,7 @@ class frameMain(wx.Frame):
 
         self.Centre(wx.BOTH)
 
-        self.textGroupName.Enable(False)
-        self.treeMaps.Enable(False)
-        self.buttonDelete.Enable(False)
-        self.buttonApply.Enable(False)
+        self.enable_group(False)
 
         self.listboxGroup.Bind(wx.EVT_LISTBOX, self.OnSelect)
         self.buttonAdd.Bind(wx.EVT_BUTTON, self.OnAdd)
@@ -189,10 +186,7 @@ class frameMain(wx.Frame):
         name = 'Group {}'.format(name_index)
         self.selections[name] = {'maps': []}
         self.listboxGroup.Append(name)
-        self.textGroupName.Enable(True)
-        self.treeMaps.Enable(True)
-        self.buttonDelete.Enable(True)
-        self.buttonApply.Enable(True)
+        self.enable_group(True)
         index = self.listboxGroup.FindString(name, True)
         self.listboxGroup.SetSelection(index)
         self.update_maps()
@@ -211,10 +205,7 @@ class frameMain(wx.Frame):
             self.treeMaps.SetMaps([])
             self.update_count()
             self.staticMapCount.SetLabel('0 maps selected')
-            self.textGroupName.Enable(False)
-            self.treeMaps.Enable(False)
-            self.buttonDelete.Enable(False)
-            self.buttonApply.Enable(False)
+            self.enable_group(False)
         else:
             count = self.listboxGroup.GetCount()
             if index < count:
@@ -270,6 +261,12 @@ class frameMain(wx.Frame):
     def OnChecked(self, event):
         self.update_count()
 
+    def enable_group(self, check):
+        self.textGroupName.Enable(check)
+        self.treeMaps.Enable(check)
+        self.buttonDelete.Enable(check)
+        self.buttonApply.Enable(check)
+
     def update_maps(self):
         if self.old_sel and self.old_sel in self.selections and self.treeMaps.IsEnabled():
             self.selections[self.old_sel]['maps'] = self.treeMaps.GetMaps()
@@ -278,10 +275,7 @@ class frameMain(wx.Frame):
             self.textGroupName.SetValue('')
             self.treeMaps.SetMaps([])
             self.update_count()
-            self.textGroupName.Enable(False)
-            self.treeMaps.Enable(False)
-            self.buttonDelete.Enable(False)
-            self.buttonApply.Enable(False)
+            self.enable_group(False)
             return
         name = self.listboxGroup.GetString(index)
         maps = self.selections[name]['maps']
@@ -304,10 +298,7 @@ class frameMain(wx.Frame):
         for sel in selections:
             self.listboxGroup.Append(sel)
         if self.selections:
-            self.textGroupName.Enable(True)
-            self.treeMaps.Enable(True)
-            self.buttonDelete.Enable(True)
-            self.buttonApply.Enable(True)
+            self.enable_group(True)
             self.listboxGroup.SetSelection(0)
         self.update_maps()
 
