@@ -315,26 +315,36 @@ class frameMain(wx.Frame):
             image = wx.Bitmap(path, wx.BITMAP_TYPE_ANY)
         except:
             return
-        if hasattr(self, 'bitmapThumb') and self.bitmapThumb is not None:
-            self.bitmapThumb.Destroy()
-            self.bitmapThumb = None
+        self.destroy_preview()
         self.bitmapThumb = wx.StaticBitmap(
             self, wx.ID_ANY, image, wx.DefaultPosition, (image.GetWidth(), image.GetHeight()), 0)
-        self.bSizerRight.Add(self.bitmapThumb, 0, wx.ALL | wx.ALIGN_CENTER | wx.EXPAND, 5)
+        self.bSizerRight.Add(self.bitmapThumb, 0, wx.ALL | wx.ALIGN_CENTER | wx.EXPAND, 2)
+        self.staticThumb = wx.StaticText(
+            self, wx.ID_ANY, self.maps_data[game_map].name, wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTRE_HORIZONTAL)
+        self.bSizerRight.Add(self.staticThumb, 0, wx.ALL | wx.ALIGN_CENTER | wx.EXPAND, 2)
+        font = wx.Font(-1, wx.DEFAULT, wx.NORMAL, wx.BOLD)
+        self.staticThumb.SetFont(font)
         self.bitmapThumb.Bind(wx.EVT_LEFT_DOWN, self.OnClickThumb)
+        self.staticThumb.Bind(wx.EVT_LEFT_DOWN, self.OnClickThumb)
         self.Layout()
 
     def OnClickThumb(self, event):
-        if hasattr(self, 'bitmapThumb') and self.bitmapThumb is not None:
-            self.bitmapThumb.Destroy()
-            self.bitmapThumb = None
-            self.Layout()
+        self.destroy_preview()
 
     def OnVersion(self, event):
         dlg = wx.MessageDialog(self, 'TF2 Casual Manager (TF2CM)\n\nVersion: {}\nAuthor: deluxghost'.format(
             self.app_version), 'About', wx.ICON_INFORMATION)
         dlg.ShowModal()
         dlg.Destroy()
+
+    def destroy_preview(self):
+        if hasattr(self, 'bitmapThumb') and self.bitmapThumb is not None:
+            self.bitmapThumb.Destroy()
+            self.bitmapThumb = None
+        if hasattr(self, 'staticThumb') and self.staticThumb is not None:
+            self.staticThumb.Destroy()
+            self.staticThumb = None
+        self.Layout()
 
     def enable_group(self, check):
         self.buttonExpand.Enable(check)
