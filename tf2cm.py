@@ -11,7 +11,7 @@ import icon
 import steam
 import tf2cm_wx
 
-__version__ = '1.1.3'
+__version__ = '1.2.0'
 
 
 class Map(object):
@@ -107,7 +107,7 @@ def read_cm():
     path = os.path.join(app_path, 'tf2cm.json')
     try:
         if not os.path.isfile(path):
-            write_cm({'selections': {}})
+            write_cm({'version': 1, 'selections': {}})
             return read_cm()
         with codecs.open(path, encoding='utf-8') as f:
             data = json.loads(f.read())
@@ -141,6 +141,7 @@ if __name__ == '__main__':
     frame.SetIcon(app_icon)
     data_file = None
     app_path = get_path()
+    frame.app_path = app_path
     path = [
         os.path.join(app_path, r'data\casual.min.json'),
         os.path.join(app_path, r'data\casual.json')
@@ -170,6 +171,7 @@ if __name__ == '__main__':
     if not frame.tf:
         error(frame, 'TF2 is not installed properly...')
         sys.exit(1)
+    frame.app_version = __version__
     frame.SetTitle('{} {}'.format(frame.GetTitle(), __version__))
     frame.Show(True)
     app.MainLoop()

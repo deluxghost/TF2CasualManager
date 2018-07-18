@@ -97,19 +97,19 @@ class frameMain(wx.Frame):
         self.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_BTNFACE))
 
-        bSizerMain = wx.BoxSizer(wx.HORIZONTAL)
+        self.bSizerMain = wx.BoxSizer(wx.HORIZONTAL)
 
-        bSizerLeft = wx.BoxSizer(wx.VERTICAL)
+        self.bSizerLeft = wx.BoxSizer(wx.VERTICAL)
 
         self.staticGroups = wx.StaticText(
             self, wx.ID_ANY, 'Map Groups:', wx.DefaultPosition, wx.DefaultSize, 0)
         self.staticGroups.Wrap(-1)
-        bSizerLeft.Add(self.staticGroups, 0, wx.ALL | wx.EXPAND, 5)
+        self.bSizerLeft.Add(self.staticGroups, 0, wx.ALL | wx.EXPAND, 5)
 
         listboxGroupChoices = []
         self.listboxGroup = wx.ListBox(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
                                        listboxGroupChoices, wx.LB_NEEDED_SB | wx.LB_SINGLE | wx.LB_SORT)
-        bSizerLeft.Add(self.listboxGroup, 1, wx.ALIGN_TOP |
+        self.bSizerLeft.Add(self.listboxGroup, 1, wx.ALIGN_TOP |
                        wx.ALL | wx.EXPAND, 5)
 
         gSizerButtons = wx.GridSizer(2, 2, 0, 0)
@@ -134,58 +134,58 @@ class frameMain(wx.Frame):
         gSizerButtons.Add(self.buttonApply, 0,
                           wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
 
-        bSizerLeft.Add(gSizerButtons, 0, wx.ALIGN_BOTTOM |
+        self.bSizerLeft.Add(gSizerButtons, 0, wx.ALIGN_BOTTOM |
                        wx.EXPAND | wx.RESERVE_SPACE_EVEN_IF_HIDDEN, 5)
 
-        bSizerMain.Add(bSizerLeft, 1, wx.EXPAND, 5)
+        self.bSizerMain.Add(self.bSizerLeft, 1, wx.EXPAND, 5)
 
-        bSizerRight = wx.BoxSizer(wx.VERTICAL)
+        self.bSizerRight = wx.BoxSizer(wx.VERTICAL)
 
-        bSizerGroupName = wx.BoxSizer(wx.HORIZONTAL)
+        self.bSizerGroupName = wx.BoxSizer(wx.HORIZONTAL)
 
         self.staticGroupName = wx.StaticText(
             self, wx.ID_ANY, 'Group:', wx.DefaultPosition, wx.DefaultSize, 0)
         self.staticGroupName.Wrap(-1)
-        bSizerGroupName.Add(self.staticGroupName, 0,
+        self.bSizerGroupName.Add(self.staticGroupName, 0,
                             wx.ALIGN_CENTER | wx.ALL, 5)
 
         self.textGroupName = wx.TextCtrl(
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizerGroupName.Add(self.textGroupName, 1,
+        self.bSizerGroupName.Add(self.textGroupName, 1,
                             wx.ALIGN_CENTER | wx.ALIGN_RIGHT | wx.ALL, 5)
-        bSizerRight.Add(bSizerGroupName, 0, wx.EXPAND, 5)
+        self.bSizerRight.Add(self.bSizerGroupName, 0, wx.EXPAND, 5)
 
-        bSizerCount = wx.BoxSizer(wx.HORIZONTAL)
+        self.bSizerCount = wx.BoxSizer(wx.HORIZONTAL)
 
         self.staticMapCount = wx.StaticText(
             self, wx.ID_ANY, '0 maps selected', wx.DefaultPosition, wx.DefaultSize, 0)
         self.staticMapCount.Wrap(-1)
-        bSizerCount.Add(self.staticMapCount, 0,
+        self.bSizerCount.Add(self.staticMapCount, 0,
                         wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
-        bSizerCount.Add((0, 0), 1, wx.EXPAND, 5)
+        self.bSizerCount.Add((0, 0), 1, wx.EXPAND, 5)
 
         self.buttonExpand = wx.Button(
             self, wx.ID_ANY, '+', wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT)
-        bSizerCount.Add(self.buttonExpand, 0, wx.ALL, 5)
+        self.bSizerCount.Add(self.buttonExpand, 0, wx.ALL, 5)
 
         self.buttonCollapse = wx.Button(
             self, wx.ID_ANY, '-', wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT)
-        bSizerCount.Add(self.buttonCollapse, 0, wx.ALL, 5)
+        self.bSizerCount.Add(self.buttonCollapse, 0, wx.ALL, 5)
 
-        bSizerRight.Add(bSizerCount, 0, wx.EXPAND, 5)
+        self.bSizerRight.Add(self.bSizerCount, 0, wx.EXPAND, 5)
 
         self.treeMaps = CustomTree(
             self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TR_DEFAULT_STYLE, agwStyle=wx.TR_DEFAULT_STYLE | CT.TR_AUTO_CHECK_CHILD | CT.TR_AUTO_CHECK_PARENT)
         self.root = self.treeMaps.AddRoot('Map Selection')
         self.treeMaps.Expand(self.root)
 
-        bSizerRight.Add(self.treeMaps, 1, wx.ALL | wx.EXPAND, 5)
+        self.bSizerRight.Add(self.treeMaps, 1, wx.ALL | wx.EXPAND, 5)
 
-        bSizerMain.Add(bSizerRight, 3, wx.EXPAND |
+        self.bSizerMain.Add(self.bSizerRight, 3, wx.EXPAND |
                        wx.RESERVE_SPACE_EVEN_IF_HIDDEN, 5)
 
-        self.SetSizer(bSizerMain)
+        self.SetSizer(self.bSizerMain)
         self.Layout()
 
         self.Centre(wx.BOTH)
@@ -201,6 +201,8 @@ class frameMain(wx.Frame):
         self.buttonApply.Bind(wx.EVT_BUTTON, self.OnApply)
         self.treeMaps.Bind(CT.EVT_TREE_ITEM_CHECKED, self.OnChecked)
         self.treeMaps.Bind(CT.EVT_TREE_ITEM_COLLAPSED, self.OnRootCollapsed)
+        self.treeMaps.Bind(CT.EVT_TREE_ITEM_RIGHT_CLICK, self.OnThumb)
+        self.staticMapCount.Bind(wx.EVT_LEFT_DCLICK, self.OnVersion)
 
     def __del__(self):
         pass
@@ -258,8 +260,7 @@ class frameMain(wx.Frame):
             tf2cm.error(self, 'Select a group to save!')
             return
         elif index == -1:
-            new_cm = dict()
-            new_cm['selections'] = self.selections
+            new_cm = {'version': 1,'selections': self.selections}
             tf2cm.write_cm(new_cm)
             return
         old_name = self.listboxGroup.GetString(index)
@@ -282,8 +283,7 @@ class frameMain(wx.Frame):
             self.update_maps()
         else:
             self.selections[new_name]['maps'] = self.treeMaps.GetMaps()
-        new_cm = dict()
-        new_cm['selections'] = self.selections
+        new_cm = {'version': 1,'selections': self.selections}
         tf2cm.write_cm(new_cm)
 
     def OnApply(self, event):
@@ -302,6 +302,40 @@ class frameMain(wx.Frame):
     def OnRootCollapsed(self, event):
         if self.root == event.GetItem():
             self.treeMaps.Expand(self.root)
+
+    def OnThumb(self, event):
+        game_map = self.treeMaps.GetPyData(event.GetItem())
+        if game_map is None:
+            return
+        name = '{}.png'.format(game_map)
+        path = os.path.join(self.app_path, r'data\images', name)
+        if not os.path.isfile(path):
+            return
+        image = None
+        try:
+            image = wx.Bitmap(path, wx.BITMAP_TYPE_ANY)
+        except:
+            return
+        if hasattr(self, 'bitmapThumb') and self.bitmapThumb is not None:
+            self.bitmapThumb.Destroy()
+            self.bitmapThumb = None
+        self.bitmapThumb = wx.StaticBitmap(
+            self, wx.ID_ANY, image, wx.DefaultPosition, (image.GetWidth(), image.GetHeight()), 0)
+        self.bSizerRight.Add(self.bitmapThumb, 0, wx.ALIGN_CENTER | wx.EXPAND, 5)
+        self.bitmapThumb.Bind(wx.EVT_LEFT_DOWN, self.OnClickThumb)
+        self.Layout()
+
+    def OnClickThumb(self, event):
+        if hasattr(self, 'bitmapThumb') and self.bitmapThumb is not None:
+            self.bitmapThumb.Destroy()
+            self.bitmapThumb = None
+            self.Layout()
+
+    def OnVersion(self, event):
+        dlg = wx.MessageDialog(self, 'TF2 Casual Manager (TF2CM)\n\nVersion: {}\nAuthor: deluxghost'.format(
+            self.app_version), 'About', wx.ICON_INFORMATION)
+        dlg.ShowModal()
+        dlg.Destroy()
 
     def enable_group(self, check):
         self.buttonExpand.Enable(check)

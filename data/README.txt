@@ -13,6 +13,8 @@ TF2CM's UI
 * Group: Edit the name of the selected group.
 * Map Selection: Change the map selection of the selected group.
 * "+" & "-": Expand and collapse map selection tree.
+* Right click a map in the tree will show the preview of the map.
+* Click the preview image will hide it.
 
 How To Use
 ----------
