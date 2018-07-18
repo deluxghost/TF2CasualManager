@@ -1,4 +1,5 @@
-wx/
+project/
+build.cmd
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

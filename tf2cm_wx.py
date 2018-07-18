@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
+
 import wx
-import wx.xrc
 import wx.lib.agw.customtreectrl as CT
+import wx.xrc
 
 import tf2cm
 

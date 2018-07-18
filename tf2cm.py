@@ -6,10 +6,12 @@ import sys
 import traceback
 
 import wx
+
+import icon
 import steam
 import tf2cm_wx
 
-__version__ = '1.1.2'
+__version__ = '1.1.3'
 
 
 class Map(object):
@@ -134,9 +136,9 @@ def error(frame, msg):
 if __name__ == '__main__':
     app = wx.App(False)
     frame = tf2cm_wx.frameMain(None)
-    icon = wx.Icon()
-    icon.CopyFromBitmap(wx.Bitmap("icon.ico", wx.BITMAP_TYPE_ANY))
-    frame.SetIcon(icon)
+    app_icon = wx.Icon()
+    app_icon.CopyFromBitmap(icon.icon.GetBitmap())
+    frame.SetIcon(app_icon)
     data_file = None
     app_path = get_path()
     path = [
