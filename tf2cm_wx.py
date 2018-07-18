@@ -135,7 +135,7 @@ class frameMain(wx.Frame):
                           wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
 
         self.bSizerLeft.Add(gSizerButtons, 0, wx.ALIGN_BOTTOM |
-                       wx.EXPAND | wx.RESERVE_SPACE_EVEN_IF_HIDDEN, 5)
+                       wx.EXPAND, 5)
 
         self.bSizerMain.Add(self.bSizerLeft, 1, wx.EXPAND, 5)
 
@@ -182,8 +182,7 @@ class frameMain(wx.Frame):
 
         self.bSizerRight.Add(self.treeMaps, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.bSizerMain.Add(self.bSizerRight, 3, wx.EXPAND |
-                       wx.RESERVE_SPACE_EVEN_IF_HIDDEN, 5)
+        self.bSizerMain.Add(self.bSizerRight, 3, wx.EXPAND, 5)
 
         self.SetSizer(self.bSizerMain)
         self.Layout()
@@ -321,7 +320,7 @@ class frameMain(wx.Frame):
             self.bitmapThumb = None
         self.bitmapThumb = wx.StaticBitmap(
             self, wx.ID_ANY, image, wx.DefaultPosition, (image.GetWidth(), image.GetHeight()), 0)
-        self.bSizerRight.Add(self.bitmapThumb, 0, wx.ALIGN_CENTER | wx.EXPAND, 5)
+        self.bSizerRight.Add(self.bitmapThumb, 0, wx.ALL | wx.ALIGN_CENTER | wx.EXPAND, 5)
         self.bitmapThumb.Bind(wx.EVT_LEFT_DOWN, self.OnClickThumb)
         self.Layout()
 
