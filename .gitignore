@@ -1,5 +1,6 @@
 project/
 build.cmd
+tf2cm.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

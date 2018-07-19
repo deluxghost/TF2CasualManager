@@ -11,7 +11,7 @@ import icon
 import steam
 import tf2cm_wx
 
-__version__ = '1.2.2'
+__version__ = '1.3.0'
 
 
 class Map(object):
@@ -50,19 +50,28 @@ def load_maps(data):
     return maps, groups
 
 
-def int2maps(number, groups):
+def int2maps(number, group):
     flags = list(reversed('{:b}'.format(number)))
     maps = list()
     for i, flag in enumerate(flags):
         if not int(flag):
             continue
-        game_map = groups[i] if - len(groups) <= i < len(groups) else ''
+        game_map = group[i] if - len(group) <= i < len(group) else ''
         if game_map:
             maps.append(game_map)
     return maps
 
 
-def maps2int(maps, maps_data):
+def ints2maps(numbers, groups):
+    maps = list()
+    for i, number in enumerate(numbers):
+        if i >= len(groups):
+            break
+        maps.extend(int2maps(number, groups[i]))
+    return maps
+
+
+def maps2ints(maps, maps_data):
     groups = list()
     for game_map in maps:
         m = maps_data[game_map]
@@ -86,12 +95,19 @@ def get_path():
     return app_path
 
 
-def read_casual(path, maps_data):
-    pass
+def read_casual(path, groups):
+    lines = list()
+    try:
+        with codecs.open(path, encoding='utf-8') as f:
+            lines = f.readlines()
+    except:
+        return False
+    lines = list(map(lambda x: int(x.replace('selected_maps_bits:', '').strip()), lines))
+    return ints2maps(lines, groups)
 
 
 def write_casual(path, maps, maps_data):
-    groups = maps2int(maps, maps_data)
+    groups = maps2ints(maps, maps_data)
     groups = list(
         map(lambda x: 'selected_maps_bits: {}\r\n'.format(x), groups))
     try:
@@ -102,29 +118,34 @@ def write_casual(path, maps, maps_data):
         return False
 
 
-def read_cm():
-    app_path = get_path()
-    path = os.path.join(app_path, 'tf2cm.json')
-    try:
-        if not os.path.isfile(path):
+def read_cm(path=None):
+    if path is None:
+        path = os.path.join(get_path(), 'tf2cm.json')
+    if not os.path.isfile(path):
+        default_file = ''
+        paths = [
+            os.path.join(get_path(), r'tf2cm_default.json'),
+            os.path.join(get_path(), r'data\tf2cm_default.json')
+        ]
+        for f in paths:
+            if os.path.isfile(f):
+                default_file = f
+                break
+        if not default_file:
             write_cm({'version': 1, 'selections': {}})
-            return read_cm()
-        with codecs.open(path, encoding='utf-8') as f:
-            data = json.loads(f.read())
-        return data
-    except:
-        error(frame, traceback.format_exc())
-        sys.exit(1)
+        else:
+            write_cm(read_cm(f))
+        return read_cm()
+    with codecs.open(path, encoding='utf-8') as f:
+        data = json.loads(f.read())
+    return data
 
 
-def write_cm(data):
-    app_path = get_path()
-    path = os.path.join(app_path, 'tf2cm.json')
-    try:
-        with codecs.open(path, 'w', encoding='utf-8') as f:
-            f.write(json.dumps(data))
-    except:
-        error(frame, traceback.format_exc())
+def write_cm(data, path=None):
+    if path is None:
+        path = os.path.join(get_path(), 'tf2cm.json')
+    with codecs.open(path, 'w', encoding='utf-8') as f:
+        f.write(json.dumps(data))
 
 
 def error(frame, msg):
@@ -165,7 +186,11 @@ if __name__ == '__main__':
     frame.maps_data = maps_data
     frame.groups = groups
     frame.load_map_struct()
-    frame.cm = read_cm()
+    try:
+        frame.cm = read_cm()
+    except:
+        error(frame, traceback.format_exc())
+        sys.exit(1)
     frame.load_cm()
     frame.tf = steam.tf2()
     if not frame.tf:

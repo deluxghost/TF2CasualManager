@@ -91,9 +91,9 @@ class frameMain(wx.Frame):
 
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title='TF2 Casual Manager', pos=wx.DefaultPosition, size=wx.Size(
-            540, 480), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
+            640, 540), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
 
-        self.SetSizeHints(wx.Size(480, 320), wx.DefaultSize)
+        self.SetSizeHints(wx.Size(540, 480), wx.DefaultSize)
         self.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_BTNFACE))
 
@@ -110,34 +110,44 @@ class frameMain(wx.Frame):
         self.listboxGroup = wx.ListBox(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
                                        listboxGroupChoices, wx.LB_NEEDED_SB | wx.LB_SINGLE | wx.LB_SORT)
         self.bSizerLeft.Add(self.listboxGroup, 1, wx.ALIGN_TOP |
-                       wx.ALL | wx.EXPAND, 5)
+                            wx.ALL | wx.EXPAND, 5)
 
-        gSizerButtons = wx.GridSizer(2, 2, 0, 0)
+        self.bSizerButtonL1 = wx.BoxSizer(wx.HORIZONTAL)
+        self.bSizerButtonL2 = wx.BoxSizer(wx.HORIZONTAL)
+        self.bSizerButtonL3 = wx.BoxSizer(wx.HORIZONTAL)
+        self.bSizerButtonL4 = wx.BoxSizer(wx.HORIZONTAL)
 
         self.buttonAdd = wx.Button(
-            self, wx.ID_ANY, 'Add Group', wx.DefaultPosition, wx.DefaultSize, 0)
-        gSizerButtons.Add(self.buttonAdd, 0, wx.ALIGN_CENTER |
-                          wx.ALL | wx.EXPAND, 5)
+            self, wx.ID_ANY, 'Add', wx.DefaultPosition, wx.DefaultSize, 0)
+        self.bSizerButtonL1.Add(self.buttonAdd, 1,
+                                wx.ALIGN_CENTER | wx.LEFT | wx.EXPAND, 5)
 
         self.buttonDelete = wx.Button(
-            self, wx.ID_ANY, 'Delete Group', wx.DefaultPosition, wx.DefaultSize, 0)
-        gSizerButtons.Add(self.buttonDelete, 0,
-                          wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
+            self, wx.ID_ANY, 'Delete', wx.DefaultPosition, wx.DefaultSize, 0)
+        self.bSizerButtonL1.Add(self.buttonDelete, 1,
+                                wx.ALIGN_CENTER | wx.RIGHT | wx.EXPAND, 5)
 
         self.buttonSave = wx.Button(
-            self, wx.ID_ANY, 'Save Group', wx.DefaultPosition, wx.DefaultSize, 0)
-        gSizerButtons.Add(self.buttonSave, 1,
-                          wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
+            self, wx.ID_ANY, 'Save', wx.DefaultPosition, wx.DefaultSize, 0)
+        self.bSizerButtonL2.Add(self.buttonSave, 1,
+                                wx.ALIGN_CENTER | wx.LEFT | wx.RIGHT | wx.EXPAND, 5)
+
+        self.buttonImport = wx.Button(
+            self, wx.ID_ANY, 'Import from TF2', wx.DefaultPosition, wx.DefaultSize, 0)
+        self.bSizerButtonL3.Add(self.buttonImport, 1,
+                                wx.ALIGN_CENTER | wx.LEFT | wx.RIGHT | wx.EXPAND, 5)
 
         self.buttonApply = wx.Button(
             self, wx.ID_ANY, 'Apply to TF2', wx.DefaultPosition, wx.DefaultSize, 0)
-        gSizerButtons.Add(self.buttonApply, 0,
-                          wx.ALIGN_CENTER | wx.ALL | wx.EXPAND, 5)
+        self.bSizerButtonL4.Add(
+            self.buttonApply, 1, wx.ALIGN_CENTER | wx.BOTTOM | wx.LEFT | wx.RIGHT | wx.EXPAND, 5)
 
-        self.bSizerLeft.Add(gSizerButtons, 0, wx.ALIGN_BOTTOM |
-                       wx.EXPAND, 5)
+        self.bSizerLeft.Add(self.bSizerButtonL1, 0, wx.EXPAND, 5)
+        self.bSizerLeft.Add(self.bSizerButtonL2, 0, wx.EXPAND, 5)
+        self.bSizerLeft.Add(self.bSizerButtonL3, 0, wx.EXPAND, 5)
+        self.bSizerLeft.Add(self.bSizerButtonL4, 0, wx.EXPAND, 5)
 
-        self.bSizerMain.Add(self.bSizerLeft, 1, wx.EXPAND, 5)
+        self.bSizerMain.Add(self.bSizerLeft, 2, wx.EXPAND, 5)
 
         self.bSizerRight = wx.BoxSizer(wx.VERTICAL)
 
@@ -147,12 +157,12 @@ class frameMain(wx.Frame):
             self, wx.ID_ANY, 'Group:', wx.DefaultPosition, wx.DefaultSize, 0)
         self.staticGroupName.Wrap(-1)
         self.bSizerGroupName.Add(self.staticGroupName, 0,
-                            wx.ALIGN_CENTER | wx.ALL, 5)
+                                 wx.ALIGN_CENTER | wx.ALL, 5)
 
         self.textGroupName = wx.TextCtrl(
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.bSizerGroupName.Add(self.textGroupName, 1,
-                            wx.ALIGN_CENTER | wx.ALIGN_RIGHT | wx.ALL, 5)
+                                 wx.ALIGN_CENTER | wx.ALIGN_RIGHT | wx.ALL, 5)
         self.bSizerRight.Add(self.bSizerGroupName, 0, wx.EXPAND, 5)
 
         self.bSizerCount = wx.BoxSizer(wx.HORIZONTAL)
@@ -161,7 +171,7 @@ class frameMain(wx.Frame):
             self, wx.ID_ANY, '0 maps selected', wx.DefaultPosition, wx.DefaultSize, 0)
         self.staticMapCount.Wrap(-1)
         self.bSizerCount.Add(self.staticMapCount, 0,
-                        wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+                             wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
         self.bSizerCount.Add((0, 0), 1, wx.EXPAND, 5)
 
@@ -182,7 +192,7 @@ class frameMain(wx.Frame):
 
         self.bSizerRight.Add(self.treeMaps, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.bSizerMain.Add(self.bSizerRight, 3, wx.EXPAND, 5)
+        self.bSizerMain.Add(self.bSizerRight, 5, wx.EXPAND, 5)
 
         self.SetSizer(self.bSizerMain)
         self.Layout()
@@ -197,6 +207,7 @@ class frameMain(wx.Frame):
         self.buttonAdd.Bind(wx.EVT_BUTTON, self.OnAdd)
         self.buttonDelete.Bind(wx.EVT_BUTTON, self.OnDelete)
         self.buttonSave.Bind(wx.EVT_BUTTON, self.OnSave)
+        self.buttonImport.Bind(wx.EVT_BUTTON, self.OnImport)
         self.buttonApply.Bind(wx.EVT_BUTTON, self.OnApply)
         self.treeMaps.Bind(CT.EVT_TREE_ITEM_CHECKED, self.OnChecked)
         self.treeMaps.Bind(CT.EVT_TREE_ITEM_COLLAPSED, self.OnRootCollapsed)
@@ -219,10 +230,11 @@ class frameMain(wx.Frame):
         self.update_maps()
 
     def OnAdd(self, event):
+        new_name_f = 'New Group {}'
         name_index = 1
-        while 'Group {}'.format(name_index) in self.selections:
+        while new_name_f.format(name_index) in self.selections:
             name_index += 1
-        name = 'Group {}'.format(name_index)
+        name = new_name_f.format(name_index)
         self.selections[name] = {'maps': []}
         self.listboxGroup.Append(name)
         self.enable_group(True)
@@ -259,7 +271,7 @@ class frameMain(wx.Frame):
             tf2cm.error(self, 'Select a group to save!')
             return
         elif index == -1:
-            new_cm = {'version': 1,'selections': self.selections}
+            new_cm = {'version': 1, 'selections': self.selections}
             tf2cm.write_cm(new_cm)
             return
         old_name = self.listboxGroup.GetString(index)
@@ -282,8 +294,29 @@ class frameMain(wx.Frame):
             self.update_maps()
         else:
             self.selections[new_name]['maps'] = self.treeMaps.GetMaps()
-        new_cm = {'version': 1,'selections': self.selections}
-        tf2cm.write_cm(new_cm)
+        new_cm = {'version': 1, 'selections': self.selections}
+        try:
+            tf2cm.write_cm(new_cm)
+        except:
+            tf2cm.error(self, 'Save groups failed!')
+
+    def OnImport(self, event):
+        new_name_f = 'Imported Group {}'
+        path = os.path.join(self.tf, 'casual_criteria.vdf')
+        stat = tf2cm.read_casual(path, self.groups)
+        if not stat:
+            tf2cm.error(self, 'Can not import current map selection from TF2.')
+            return
+        name_index = 1
+        while new_name_f.format(name_index) in self.selections:
+            name_index += 1
+        name = new_name_f.format(name_index)
+        self.selections[name] = {'maps': stat}
+        self.listboxGroup.Append(name)
+        self.enable_group(True)
+        index = self.listboxGroup.FindString(name, True)
+        self.listboxGroup.SetSelection(index)
+        self.update_maps()
 
     def OnApply(self, event):
         path = os.path.join(self.tf, 'casual_criteria.vdf')
@@ -318,10 +351,12 @@ class frameMain(wx.Frame):
         self.destroy_preview()
         self.bitmapThumb = wx.StaticBitmap(
             self, wx.ID_ANY, image, wx.DefaultPosition, (image.GetWidth(), image.GetHeight()), 0)
-        self.bSizerRight.Add(self.bitmapThumb, 0, wx.ALL | wx.ALIGN_CENTER | wx.EXPAND, 2)
+        self.bSizerRight.Add(self.bitmapThumb, 0, wx.ALL |
+                             wx.ALIGN_CENTER | wx.EXPAND, 2)
         self.staticThumb = wx.StaticText(
             self, wx.ID_ANY, self.maps_data[game_map].name, wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTRE_HORIZONTAL)
-        self.bSizerRight.Add(self.staticThumb, 0, wx.ALL | wx.ALIGN_CENTER | wx.EXPAND, 2)
+        self.bSizerRight.Add(self.staticThumb, 0, wx.ALL |
+                             wx.ALIGN_CENTER | wx.EXPAND, 2)
         font = wx.Font(-1, wx.DEFAULT, wx.NORMAL, wx.BOLD)
         self.staticThumb.SetFont(font)
         self.bitmapThumb.Bind(wx.EVT_LEFT_DOWN, self.OnClickThumb)
