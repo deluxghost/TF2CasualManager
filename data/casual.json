@@ -2,6 +2,124 @@
     "version": 1,
     "categories": [
         {
+            "name": "Special Events",
+            "modes": [
+                {
+                    "name": "Halloween",
+                    "maps":[
+                        {
+                            "name": "Cauldron",
+                            "bsp": "koth_bagel_event",
+                            "group": 3,
+                            "bit": 11
+                        },
+                        {
+                            "name": "Cursed Cove",
+                            "bsp": "pd_cursed_cove_event",
+                            "group": 3,
+                            "bit": 15
+                        },
+                        {
+                            "name": "Gravestone",
+                            "bsp": "pl_rumble_event",
+                            "group": 3,
+                            "bit": 12
+                        },
+                        {
+                            "name": "Monster Bash",
+                            "bsp": "pd_monster_bash",
+                            "group": 3,
+                            "bit": 13
+                        },
+                        {
+                            "name": "Slasher",
+                            "bsp": "koth_slasher",
+                            "group": 3,
+                            "bit": 14
+                        },
+                        {
+                            "name": "Brimstone",
+                            "bsp": "pl_fifthcurve_event",
+                            "group": 3,
+                            "bit": 3
+                        },
+                        {
+                            "name": "Carnival of Carnage",
+                            "bsp": "sd_doomsday_event",
+                            "group": 2,
+                            "bit": 19
+                        },
+                        {
+                            "name": "Eyeaduct",
+                            "bsp": "koth_viaduct_event",
+                            "group": 2,
+                            "bit": 14
+                        },
+                        {
+                            "name": "Ghost Fort",
+                            "bsp": "koth_lakeside_event",
+                            "group": 2,
+                            "bit": 17
+                        },
+                        {
+                            "name": "Gorge Event",
+                            "bsp": "cp_gorge_event",
+                            "group": 2,
+                            "bit": 10
+                        },
+                        {
+                            "name": "Harvest Event",
+                            "bsp": "koth_harvest_event",
+                            "group": 2,
+                            "bit": 16
+                        },
+                        {
+                            "name": "Hellstone",
+                            "bsp": "pl_millstone_event",
+                            "group": 2,
+                            "bit": 13
+                        },
+                        {
+                            "name": "Helltower",
+                            "bsp": "plr_hightower_event",
+                            "group": 2,
+                            "bit": 18
+                        },
+                        {
+                            "name": "Mann Manor",
+                            "bsp": "cp_manor_event",
+                            "group": 2,
+                            "bit": 15
+                        },
+                        {
+                            "name": "Maple Ridge Event",
+                            "bsp": "koth_maple_ridge_event",
+                            "group": 3,
+                            "bit": 2
+                        },
+                        {
+                            "name": "Moonshine Event",
+                            "bsp": "koth_moonshine_event",
+                            "group": 2,
+                            "bit": 12
+                        },
+                        {
+                            "name": "Pit of Death",
+                            "bsp": "pd_pit_of_death_event",
+                            "group": 3,
+                            "bit": 4
+                        },
+                        {
+                            "name": "Sinshine",
+                            "bsp": "cp_sunshine_event",
+                            "group": 2,
+                            "bit": 11
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "Core",
             "modes": [
                 {

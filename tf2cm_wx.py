@@ -164,6 +164,12 @@ class frameMain(wx.Frame):
                                  wx.ALIGN_CENTER | wx.ALIGN_RIGHT | wx.ALL, 5)
         self.bSizerRight.Add(self.bSizerGroupName, 0, wx.EXPAND, 5)
 
+        # self.bSizerHalloween = wx.BoxSizer(wx.HORIZONTAL)
+        # self.checkHalloween = wx.CheckBox(self, wx.ID_ANY, 'Show Halloween Maps', wx.DefaultPosition, wx.DefaultSize, wx.CHK_2STATE)
+        # self.bSizerHalloween.Add(self.checkHalloween, 0,
+        #                      wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+        # self.bSizerRight.Add(self.bSizerHalloween, 0, wx.EXPAND, 5)
+
         self.bSizerCount = wx.BoxSizer(wx.HORIZONTAL)
 
         self.staticMapCount = wx.StaticText(
