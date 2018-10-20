@@ -145,7 +145,7 @@ def write_cm(data, path=None):
     if path is None:
         path = os.path.join(get_path(), 'tf2cm.json')
     with codecs.open(path, 'w', encoding='utf-8') as f:
-        f.write(json.dumps(data))
+        f.write(json.dumps(data, indent=None, separators=(',', ':')))
 
 
 def error(frame, msg):
