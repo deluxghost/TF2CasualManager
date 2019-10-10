@@ -8,36 +8,6 @@
                     "name": "Halloween",
                     "maps":[
                         {
-                            "name": "Cauldron",
-                            "bsp": "koth_bagel_event",
-                            "group": 3,
-                            "bit": 11
-                        },
-                        {
-                            "name": "Cursed Cove",
-                            "bsp": "pd_cursed_cove_event",
-                            "group": 3,
-                            "bit": 15
-                        },
-                        {
-                            "name": "Gravestone",
-                            "bsp": "pl_rumble_event",
-                            "group": 3,
-                            "bit": 12
-                        },
-                        {
-                            "name": "Monster Bash",
-                            "bsp": "pd_monster_bash",
-                            "group": 3,
-                            "bit": 13
-                        },
-                        {
-                            "name": "Slasher",
-                            "bsp": "koth_slasher",
-                            "group": 3,
-                            "bit": 14
-                        },
-                        {
                             "name": "Brimstone",
                             "bsp": "pl_fifthcurve_event",
                             "group": 3,
@@ -48,6 +18,18 @@
                             "bsp": "sd_doomsday_event",
                             "group": 2,
                             "bit": 19
+                        },
+                        {
+                            "name": "Cauldron",
+                            "bsp": "koth_bagel_event",
+                            "group": 3,
+                            "bit": 11
+                        },
+                        {
+                            "name": "Cursed Cove",
+                            "bsp": "pd_cursed_cove_event",
+                            "group": 3,
+                            "bit": 15
                         },
                         {
                             "name": "Eyeaduct",
@@ -68,6 +50,12 @@
                             "bit": 10
                         },
                         {
+                            "name": "Gravestone",
+                            "bsp": "pl_rumble_event",
+                            "group": 3,
+                            "bit": 12
+                        },
+                        {
                             "name": "Harvest Event",
                             "bsp": "koth_harvest_event",
                             "group": 2,
@@ -86,6 +74,12 @@
                             "bit": 18
                         },
                         {
+                            "name": "Laughter",
+                            "bsp": "koth_slaughter_event",
+                            "group": 3,
+                            "bit": 16
+                        },
+                        {
                             "name": "Mann Manor",
                             "bsp": "cp_manor_event",
                             "group": 2,
@@ -96,6 +90,12 @@
                             "bsp": "koth_maple_ridge_event",
                             "group": 3,
                             "bit": 2
+                        },
+                        {
+                            "name": "Monster Bash",
+                            "bsp": "pd_monster_bash",
+                            "group": 3,
+                            "bit": 13
                         },
                         {
                             "name": "Moonshine Event",
@@ -110,10 +110,22 @@
                             "bit": 4
                         },
                         {
+                            "name": "Precipice",
+                            "bsp": "pl_precipice_event_final",
+                            "group": 3,
+                            "bit": 17
+                        },
+                        {
                             "name": "Sinshine",
                             "bsp": "cp_sunshine_event",
                             "group": 2,
                             "bit": 11
+                        },
+                        {
+                            "name": "Slasher",
+                            "bsp": "koth_slasher",
+                            "group": 3,
+                            "bit": 14
                         }
                     ]
                 }
