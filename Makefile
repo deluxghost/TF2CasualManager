@@ -4,7 +4,8 @@ all: dist\tf2cm.exe
 	mkdir dist\tf2cm
 	mkdir dist\tf2cm\data
 	mkdir dist\tf2cm\data\images
-	move /y dist\tf2cm.exe dist\tf2cm\tf2cm.exe
+	copy /y dist\tf2cm.exe dist\tf2cm
+	del /f /q dist\tf2cm.exe
 	copy /y data\README.txt dist\tf2cm
 	copy /y data\tf2cm_default.json dist\tf2cm\data
 	copy /y data\casual.min.json dist\tf2cm\data
