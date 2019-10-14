@@ -11,7 +11,7 @@ import icon
 import steam
 import tf2cm_wx
 
-__version__ = '1.5.0'
+__version__ = '1.5.1'
 
 
 class Map(object):
