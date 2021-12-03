@@ -6,7 +6,13 @@
             "modes": [
                 {
                     "name": "Halloween",
-                    "maps":[
+                    "maps": [
+                        {
+                            "name": "Bloodwater",
+                            "bsp": "pl_bloodwater",
+                            "group": 3,
+                            "bit": 20
+                        },
                         {
                             "name": "Brimstone",
                             "bsp": "pl_fifthcurve_event",
@@ -32,10 +38,22 @@
                             "bit": 15
                         },
                         {
+                            "name": "Erebus",
+                            "bsp": "cp_ambush_event",
+                            "group": 3,
+                            "bit": 28
+                        },
+                        {
                             "name": "Eyeaduct",
                             "bsp": "koth_viaduct_event",
                             "group": 2,
                             "bit": 14
+                        },
+                        {
+                            "name": "Farmageddon",
+                            "bsp": "pd_farmageddon",
+                            "group": 3,
+                            "bit": 26
                         },
                         {
                             "name": "Ghost Fort",
@@ -56,10 +74,22 @@
                             "bit": 12
                         },
                         {
+                            "name": "Graveyard",
+                            "bsp": "arena_lumberyard_event",
+                            "group": 3,
+                            "bit": 30
+                        },
+                        {
                             "name": "Harvest Event",
                             "bsp": "koth_harvest_event",
                             "group": 2,
                             "bit": 16
+                        },
+                        {
+                            "name": "Hassle Castle",
+                            "bsp": "pl_hasslecastle",
+                            "group": 3,
+                            "bit": 19
                         },
                         {
                             "name": "Hellstone",
@@ -80,6 +110,12 @@
                             "bit": 16
                         },
                         {
+                            "name": "Los Muertos",
+                            "bsp": "koth_los_muertos",
+                            "group": 3,
+                            "bit": 27
+                        },
+                        {
                             "name": "Mann Manor",
                             "bsp": "cp_manor_event",
                             "group": 2,
@@ -90,6 +126,18 @@
                             "bsp": "koth_maple_ridge_event",
                             "group": 3,
                             "bit": 2
+                        },
+                        {
+                            "name": "Megalo",
+                            "bsp": "koth_megalo",
+                            "group": 3,
+                            "bit": 18
+                        },
+                        {
+                            "name": "Moldergrove",
+                            "bsp": "koth_undergrove_event",
+                            "group": 3,
+                            "bit": 21
                         },
                         {
                             "name": "Monster Bash",
@@ -122,10 +170,81 @@
                             "bit": 11
                         },
                         {
+                            "name": "Sinthetic",
+                            "bsp": "koth_synthetic_event",
+                            "group": 3,
+                            "bit": 31
+                        },
+                        {
                             "name": "Slasher",
                             "bsp": "koth_slasher",
                             "group": 3,
                             "bit": 14
+                        },
+                        {
+                            "name": "Terror",
+                            "bsp": "pl_terror_event",
+                            "group": 3,
+                            "bit": 29
+                        }
+                    ]
+                },
+                {
+                    "name": "Smissmas",
+                    "maps": [
+                        {
+                            "name": "Altitude",
+                            "bsp": "cp_altitude",
+                            "group": 4,
+                            "bit": 4
+                        },
+                        {
+                            "name": "Bread Space",
+                            "bsp": "pl_breadspace",
+                            "group": 4,
+                            "bit": 1
+                        },
+                        {
+                            "name": "Cascade",
+                            "bsp": "koth_cascade",
+                            "group": 4,
+                            "bit": 3
+                        },
+                        {
+                            "name": "Chilly",
+                            "bsp": "pl_chilly",
+                            "group": 4,
+                            "bit": 2
+                        },
+                        {
+                            "name": "Doublefrost",
+                            "bsp": "ctf_doublecross_snowy",
+                            "group": 4,
+                            "bit": 5
+                        },
+                        {
+                            "name": "Polar",
+                            "bsp": "pl_coal_event",
+                            "group": 4,
+                            "bit": 0
+                        },
+                        {
+                            "name": "Snowfall",
+                            "bsp": "ctf_snowfall_final",
+                            "group": 3,
+                            "bit": 24
+                        },
+                        {
+                            "name": "SnowVille",
+                            "bsp": "pd_snowville_event",
+                            "group": 3,
+                            "bit": 23
+                        },
+                        {
+                            "name": "Wutville",
+                            "bsp": "pl_wutville_event",
+                            "group": 3,
+                            "bit": 25
                         }
                     ]
                 }
@@ -456,6 +575,12 @@
                             "bsp": "pl_hoodoo_final",
                             "group": 0,
                             "bit": 23
+                        },
+                        {
+                            "name": "Pier",
+                            "bsp": "pl_pier",
+                            "group": 3,
+                            "bit": 22
                         },
                         {
                             "name": "Snowycoast",
